@@ -10,8 +10,7 @@ def extended_gcd(a, b):
         y = x1
         return gcd, x, y
 
-# 示例用法
-a = 30
+a = 25
 b = 20
 gcd, x, y = extended_gcd(a, b)
 print(f"gcd({a}, {b}) = {gcd}, x = {x}, y = {y}")

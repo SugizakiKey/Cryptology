@@ -1,5 +1,4 @@
 def square_and_multiply(a, b, m):
-   
     result = 1
     a = a % m
 
@@ -11,7 +10,7 @@ def square_and_multiply(a, b, m):
 
     return result
 
-a = 3
-b = 12
+a = 5
+b = 17
 m = 497
 print(square_and_multiply(a, b, m))

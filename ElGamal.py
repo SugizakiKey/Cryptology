@@ -1,17 +1,12 @@
 import random
-from sympy import isprime, mod_inverse
-
-
-def generate_prime(bits):
-    while True:
-        p = random.getrandbits(bits)
-        if isprime(p):
-            return p
-
+import sympy
 
 def generate_keypair(bits):
-    # 选择一个大素数 p 和生成元 g
-    p = generate_prime(bits)
+    while True:
+        p = random.getrandbits(bits)
+        if sympy.isprime(p):
+            break
+
     g = random.randint(2, p - 1)
 
     # 私钥 x 是一个随机数
@@ -22,12 +17,11 @@ def generate_keypair(bits):
 
     return (p, g, y), x
 
-
-def encrypt(plaintext, public_key):
+def encrypt(result, public_key):
     p, g, y = public_key
 
     # 将明文转换为整数
-    m = int.from_bytes(plaintext.encode(), 'big')
+    m = int.from_bytes(result.encode(), 'big')
 
     # 选择一个随机数 k
     k = random.randint(1, p - 2)
@@ -38,7 +32,6 @@ def encrypt(plaintext, public_key):
 
     return (c1, c2)
 
-
 def decrypt(ciphertext, private_key, public_key):
     c1, c2 = ciphertext
     p, g, y = public_key
@@ -48,15 +41,14 @@ def decrypt(ciphertext, private_key, public_key):
     s = pow(c1, x, p)
 
     # 计算 s 的模逆
-    s_inv = mod_inverse(s, p)
+    s_inverse = sympy.mod_inverse(s, p)
 
     # 计算 m = c2 * s^(-1) mod p
-    m = (c2 * s_inv) % p
-
+    m = (c2 * s_inverse) % p
     # 将整数转换回字符串
-    plaintext = m.to_bytes((m.bit_length() + 7) // 8, 'big').decode()
+    result = m.to_bytes((m.bit_length() + 7) // 8, 'big').decode()
 
-    return plaintext
+    return result
 
 
 # 示例用法

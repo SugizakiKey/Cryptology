@@ -1,3 +1,5 @@
+import random
+
 def generate_key(length):
     """生成一个长度为length的排列密钥"""
     key = list(range(length))
@@ -19,17 +21,17 @@ def permutation_decrypt(ciphertext, key):
     return ''.join(plaintext)
 
 # 示例用法
-plaintext = "HELLOPERMUTATION"
-print("Original message:", plaintext)
+plaintext = "WOSHIWYH"
+print("Original:", plaintext)
 
 # 生成密钥
 key = generate_key(len(plaintext))
-print("Permutation key:", key)
+print("key:", key)
 
 # 加密
 encrypted_msg = permutation_encrypt(plaintext, key)
-print("Encrypted message:", encrypted_msg)
+print("Encrypted:", encrypted_msg)
 
 # 解密
 decrypted_msg = permutation_decrypt(encrypted_msg, key)
-print("Decrypted message:", decrypted_msg)
+print("Decrypted:", decrypted_msg)
