@@ -18,8 +18,9 @@ def vigenere(message, key, mode):
     return result
 
 message = "IamWyh"
+print("message: ",message)
 key = "KEY"
 encrypt = vigenere(message, key, '0')
-print("Encrypted message:", encrypt)
+print("Encrypted:", encrypt)
 decrypt = vigenere(encrypt, key, '1')
-print("Decrypted message:", decrypt)
+print("Decrypted:", decrypt)

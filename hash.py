@@ -16,7 +16,7 @@ def generate_mac(message, key):
     mac = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
     return mac
 
-message = "Hello, this is a secret message"
-key = "my_secret_key"
+message = "woshiWangYihan"
+key = "WYHkey"
 mac = generate_mac(message, key)
 print(mac)
