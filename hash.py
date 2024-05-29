@@ -1,22 +1,18 @@
 import hashlib
-import hmac
-
-def hash_password(password):
-    hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    return hashed_password
-
-def calculate_file_hash(file_path):
-    with open(file_path, 'rb') as f:
-        file_data = f.read()
-    file_hash = hashlib.sha256(file_data).hexdigest()
-    return file_hash
 
 
-def generate_mac(message, key):
-    mac = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
-    return mac
+def encrypt_mac_address(mac_address):
+    # 将MAC地址转换为小写并去除冒号
+    mac_address = mac_address.lower().replace(':', '')
 
-message = "woshiWangYihan"
-key = "WYHkey"
-mac = generate_mac(message, key)
-print(mac)
+    # 使用SHA-256哈希算法进行加密
+    hash_object = hashlib.sha256(mac_address.encode())
+    encrypted_mac_address = hash_object.hexdigest()
+
+    return encrypted_mac_address
+
+
+mac_address = "00:11:22:33:44:55"
+encrypted_mac_address = encrypt_mac_address(mac_address)
+print("original：", mac_address)
+print("decrypt：", encrypted_mac_address)

@@ -1,26 +1,39 @@
-def vigenere(message, key, mode):
-    # 转换为大写
-    message = message.upper()
-    key = key.upper()
+def vigenere_cipher_encrypt(plaintext, key):
+    ciphertext = ""
     key_length = len(key)
-    result = ''
-    # 遍历
-    for i in range(len(message)):
-        if message[i].isalpha():
-            if mode == '0': #加密
-                shift = ord(key[i % key_length]) - 65
-            elif mode == '1':#解密
-                shift = 27 - (ord(key[i % key_length]) - 65)
-            # 使用移位来加密/解密
-            result += chr((ord(message[i]) - 65 + shift) % 27 + 65)
+    for i in range(len(plaintext)):
+        char = plaintext[i]
+        if char.isalpha():
+            shift = ord(key[i % key_length].upper()) - ord('A')
+            if char.isupper():
+                ciphertext += chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
+            else:
+                ciphertext += chr((ord(char) - ord('a') + shift) % 26 + ord('a'))
         else:
-            result += message[i]
-    return result
+            ciphertext += char
+    return ciphertext
 
-message = "IamWyh"
-print("message: ",message)
+def vigenere_cipher_decrypt(ciphertext, key):
+    plaintext = ""
+    key_length = len(key)
+    for i in range(len(ciphertext)):
+        char = ciphertext[i]
+        if char.isalpha():
+            shift = ord(key[i % key_length].upper()) - ord('A')
+            if char.isupper():
+                plaintext += chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
+            else:
+                plaintext += chr((ord(char) - ord('a') - shift) % 26 + ord('a'))
+        else:
+            plaintext += char
+    return plaintext
+
+
+plaintext = "Hello"
 key = "KEY"
-encrypt = vigenere(message, key, '0')
-print("Encrypted:", encrypt)
-decrypt = vigenere(encrypt, key, '1')
-print("Decrypted:", decrypt)
+
+ciphertext = vigenere_cipher_encrypt(plaintext, key)
+print("加密：", ciphertext)
+
+decrypted_text = vigenere_cipher_decrypt(ciphertext, key)
+print("解密：", decrypted_text)
